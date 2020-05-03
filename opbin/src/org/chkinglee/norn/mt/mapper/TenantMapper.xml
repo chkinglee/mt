@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.chkinglee.norn.mt.mapper.TenantMapper">
+  <resultMap id="BaseResultMap" type="org.chkinglee.norn.mt.model.Tenant">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenant" jdbcType="VARCHAR" property="tenant" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="contactName" jdbcType="VARCHAR" property="contactname" />
+    <result column="contactPhone" jdbcType="VARCHAR" property="contactphone" />
+    <result column="contactEmail" jdbcType="VARCHAR" property="contactemail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tenant, alias, token, contactName, contactPhone, contactEmail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tenant
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tenant
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.chkinglee.norn.mt.model.Tenant">
+    insert into tenant (id, tenant, alias, 
+      token, contactName, contactPhone, 
+      contactEmail)
+    values (#{id,jdbcType=INTEGER}, #{tenant,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, 
+      #{token,jdbcType=VARCHAR}, #{contactname,jdbcType=VARCHAR}, #{contactphone,jdbcType=VARCHAR}, 
+      #{contactemail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.chkinglee.norn.mt.model.Tenant">
+    insert into tenant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tenant != null">
+        tenant,
+      </if>
+      <if test="alias != null">
+        alias,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="contactname != null">
+        contactName,
+      </if>
+      <if test="contactphone != null">
+        contactPhone,
+      </if>
+      <if test="contactemail != null">
+        contactEmail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tenant != null">
+        #{tenant,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null">
+        #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="contactname != null">
+        #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="contactphone != null">
+        #{contactphone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactemail != null">
+        #{contactemail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.chkinglee.norn.mt.model.Tenant">
+    update tenant
+    <set>
+      <if test="tenant != null">
+        tenant = #{tenant,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null">
+        alias = #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="contactname != null">
+        contactName = #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="contactphone != null">
+        contactPhone = #{contactphone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactemail != null">
+        contactEmail = #{contactemail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.chkinglee.norn.mt.model.Tenant">
+    update tenant
+    set tenant = #{tenant,jdbcType=VARCHAR},
+      alias = #{alias,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      contactName = #{contactname,jdbcType=VARCHAR},
+      contactPhone = #{contactphone,jdbcType=VARCHAR},
+      contactEmail = #{contactemail,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="org.chkinglee.norn.mt.model.Tenant">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="tenant" jdbcType="VARCHAR" property="tenant" />
+    <result column="alias" jdbcType="VARCHAR" property="alias" />
+    <result column="token" jdbcType="VARCHAR" property="token" />
+    <result column="contactName" jdbcType="VARCHAR" property="contactname" />
+    <result column="contactPhone" jdbcType="VARCHAR" property="contactphone" />
+    <result column="contactEmail" jdbcType="VARCHAR" property="contactemail" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, tenant, alias, token, contactName, contactPhone, contactEmail
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from tenant
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from tenant
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="org.chkinglee.norn.mt.model.Tenant">
+    insert into tenant (id, tenant, alias, 
+      token, contactName, contactPhone, 
+      contactEmail)
+    values (#{id,jdbcType=INTEGER}, #{tenant,jdbcType=VARCHAR}, #{alias,jdbcType=VARCHAR}, 
+      #{token,jdbcType=VARCHAR}, #{contactname,jdbcType=VARCHAR}, #{contactphone,jdbcType=VARCHAR}, 
+      #{contactemail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="org.chkinglee.norn.mt.model.Tenant">
+    insert into tenant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="tenant != null">
+        tenant,
+      </if>
+      <if test="alias != null">
+        alias,
+      </if>
+      <if test="token != null">
+        token,
+      </if>
+      <if test="contactname != null">
+        contactName,
+      </if>
+      <if test="contactphone != null">
+        contactPhone,
+      </if>
+      <if test="contactemail != null">
+        contactEmail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="tenant != null">
+        #{tenant,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null">
+        #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="contactname != null">
+        #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="contactphone != null">
+        #{contactphone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactemail != null">
+        #{contactemail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="org.chkinglee.norn.mt.model.Tenant">
+    update tenant
+    <set>
+      <if test="tenant != null">
+        tenant = #{tenant,jdbcType=VARCHAR},
+      </if>
+      <if test="alias != null">
+        alias = #{alias,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null">
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="contactname != null">
+        contactName = #{contactname,jdbcType=VARCHAR},
+      </if>
+      <if test="contactphone != null">
+        contactPhone = #{contactphone,jdbcType=VARCHAR},
+      </if>
+      <if test="contactemail != null">
+        contactEmail = #{contactemail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="org.chkinglee.norn.mt.model.Tenant">
+    update tenant
+    set tenant = #{tenant,jdbcType=VARCHAR},
+      alias = #{alias,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      contactName = #{contactname,jdbcType=VARCHAR},
+      contactPhone = #{contactphone,jdbcType=VARCHAR},
+      contactEmail = #{contactemail,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

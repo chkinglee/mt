@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="org.chkinglee.norn.mt.mapper.MenuMapper">
+    <resultMap id="BaseResultMap" type="org.chkinglee.norn.mt.model.Menu">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="component" jdbcType="VARCHAR" property="component"/>
+        <result column="name" jdbcType="VARCHAR" property="name"/>
+        <result column="iconCls" jdbcType="VARCHAR" property="iconCls"/>
+        <result column="parentId" jdbcType="INTEGER" property="parentId"/>
+        <result column="tenantId" jdbcType="INTEGER" property="tenantId"/>
+        <association property="meta" javaType="org.chkinglee.norn.mt.model.Meta">
+            <result column="keepAlive" jdbcType="BIT" property="keepAlive"/>
+            <result column="requireAuth" jdbcType="BIT" property="requireAuth"/>
+            <result column="enabled" jdbcType="BIT" property="enabled"/>
+            <result column="undeletable" jdbcType="BIT" property="undeletable"/>
+        </association>
+        <collection property="children" ofType="org.chkinglee.norn.mt.model.Menu">
+            <id column="id2" jdbcType="INTEGER" property="id"/>
+            <result column="url2" jdbcType="VARCHAR" property="url"/>
+            <result column="path2" jdbcType="VARCHAR" property="path"/>
+            <result column="component2" jdbcType="VARCHAR" property="component"/>
+            <result column="name2" jdbcType="VARCHAR" property="name"/>
+            <result column="iconCls2" jdbcType="VARCHAR" property="iconCls"/>
+            <result column="parentId2" jdbcType="INTEGER" property="parentId"/>
+            <result column="tenantId2" jdbcType="INTEGER" property="tenantId"/>
+            <association property="meta" javaType="org.chkinglee.norn.mt.model.Meta">
+                <result column="keepAlive2" jdbcType="BIT" property="keepAlive"/>
+                <result column="requireAuth2" jdbcType="BIT" property="requireAuth"/>
+                <result column="enabled2" jdbcType="BIT" property="enabled"/>
+                <result column="undeletable2" jdbcType="BIT" property="undeletable"/>
+            </association>
+        </collection>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled,
+        tenantId, undeletable
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from menu
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <select id="getMenusByTenant" resultMap="BaseResultMap">
+        SELECT m1.*,
+               m2.`id`          AS id2,
+               m2.`url`         AS url2,
+               m2.`path`        AS path2,
+               m2.`component`   AS component2,
+               m2.`name`        AS name2,
+               m2.`iconCls`     AS iconCls2,
+               m2.`keepAlive`   AS keepAlive2,
+               m2.`requireAuth` AS requireAuth2,
+               m2.`parentId`    AS parentId2,
+               m2.`enabled`     AS enabled2,
+               m2.`tenantId`    AS tenantId2,
+               m2.`undeletable` AS undeletable2
+        FROM menu m1
+                 LEFT JOIN menu m2 ON m2.parentId = m1.id
+                 LEFT JOIN tenant ON m2.tenantId = tenant.id
+        WHERE m1.id != 1
+          AND tenant.tenant IN ("ALL", #{tenant});
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from menu
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" parameterType="org.chkinglee.norn.mt.model.Menu">
+        insert into menu (id,
+                          url,
+                          path,
+                          component,
+                          name,
+                          iconCls,
+                          keepAlive,
+                          requireAuth,
+                          parentId,
+                          enabled,
+                          tenantId,
+                          undeletable)
+        values (#{id,jdbcType=INTEGER},
+                #{url,jdbcType=VARCHAR},
+                #{path,jdbcType=VARCHAR},
+                #{component,jdbcType=VARCHAR},
+                #{name,jdbcType=VARCHAR},
+                #{iconCls,jdbcType=VARCHAR},
+                #{keepalive,jdbcType=BIT},
+                #{requireauth,jdbcType=BIT},
+                #{parentId,jdbcType=INTEGER},
+                #{enabled,jdbcType=BIT},
+                #{tenantId,jdbcType=INTEGER},
+                #{undeletable,jdbcType=BIT})
+    </insert>
+    <insert id="insertSelective" parameterType="org.chkinglee.norn.mt.model.Menu">
+        insert into menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="path != null">
+                path,
+            </if>
+            <if test="component != null">
+                component,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="iconCls != null">
+                iconCls,
+            </if>
+            <if test="keepalive != null">
+                keepAlive,
+            </if>
+            <if test="requireauth != null">
+                requireAuth,
+            </if>
+            <if test="parentId != null">
+                parentId,
+            </if>
+            <if test="enabled != null">
+                enabled,
+            </if>
+            <if test="tenantId != null">
+                tenantId,
+            </if>
+            <if test="undeletable != null">
+                undeletable,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="component != null">
+                #{component,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="iconCls != null">
+                #{iconCls,jdbcType=VARCHAR},
+            </if>
+            <if test="keepalive != null">
+                #{keepalive,jdbcType=BIT},
+            </if>
+            <if test="requireauth != null">
+                #{requireauth,jdbcType=BIT},
+            </if>
+            <if test="parentId != null">
+                #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="enabled != null">
+                #{enabled,jdbcType=BIT},
+            </if>
+            <if test="tenantId != null">
+                #{tenantId,jdbcType=INTEGER},
+            </if>
+            <if test="undeletable != null">
+                #{undeletable,jdbcType=BIT},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="org.chkinglee.norn.mt.model.Menu">
+        update menu
+        <set>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="path != null">
+                path = #{path,jdbcType=VARCHAR},
+            </if>
+            <if test="component != null">
+                component = #{component,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="iconCls != null">
+                iconCls = #{iconCls,jdbcType=VARCHAR},
+            </if>
+            <if test="keepalive != null">
+                keepAlive = #{keepalive,jdbcType=BIT},
+            </if>
+            <if test="requireauth != null">
+                requireAuth = #{requireauth,jdbcType=BIT},
+            </if>
+            <if test="parentId != null">
+                parentId = #{parentId,jdbcType=INTEGER},
+            </if>
+            <if test="enabled != null">
+                enabled = #{enabled,jdbcType=BIT},
+            </if>
+            <if test="tenantId != null">
+                tenantId = #{tenantId,jdbcType=INTEGER},
+            </if>
+            <if test="undeletable != null">
+                undeletable = #{undeletable,jdbcType=BIT},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="org.chkinglee.norn.mt.model.Menu">
+        update menu
+        set url         = #{url,jdbcType=VARCHAR},
+            path        = #{path,jdbcType=VARCHAR},
+            component   = #{component,jdbcType=VARCHAR},
+            name        = #{name,jdbcType=VARCHAR},
+            iconCls     = #{iconCls,jdbcType=VARCHAR},
+            keepAlive   = #{keepalive,jdbcType=BIT},
+            requireAuth = #{requireauth,jdbcType=BIT},
+            parentId    = #{parentId,jdbcType=INTEGER},
+            enabled     = #{enabled,jdbcType=BIT},
+            tenantId    = #{tenantId,jdbcType=INTEGER},
+            undeletable = #{undeletable,jdbcType=BIT}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+</mapper>
