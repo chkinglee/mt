@@ -5,6 +5,7 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
         <result column="path" jdbcType="VARCHAR" property="path"/>
+        <result column="componentDir" jdbcType="VARCHAR" property="componentDir"/>
         <result column="component" jdbcType="VARCHAR" property="component"/>
         <result column="name" jdbcType="VARCHAR" property="name"/>
         <result column="iconCls" jdbcType="VARCHAR" property="iconCls"/>
@@ -20,6 +21,7 @@
             <id column="id2" jdbcType="INTEGER" property="id"/>
             <result column="url2" jdbcType="VARCHAR" property="url"/>
             <result column="path2" jdbcType="VARCHAR" property="path"/>
+            <result column="componentDir2" jdbcType="VARCHAR" property="componentDir"/>
             <result column="component2" jdbcType="VARCHAR" property="component"/>
             <result column="name2" jdbcType="VARCHAR" property="name"/>
             <result column="iconCls2" jdbcType="VARCHAR" property="iconCls"/>
@@ -34,7 +36,7 @@
         </collection>
     </resultMap>
     <sql id="Base_Column_List">
-        id, url, path, component, name, iconCls, keepAlive, requireAuth, parentId, enabled,
+        id, url, path, componentDir, component, name, iconCls, keepAlive, requireAuth, parentId, enabled,
         tenantId, undeletable
     </sql>
     <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -48,6 +50,7 @@
                m2.`id`          AS id2,
                m2.`url`         AS url2,
                m2.`path`        AS path2,
+               m2.`componentDir`   AS componentDir2,
                m2.`component`   AS component2,
                m2.`name`        AS name2,
                m2.`iconCls`     AS iconCls2,
@@ -72,6 +75,7 @@
         insert into menu (id,
                           url,
                           path,
+                          componentDir,
                           component,
                           name,
                           iconCls,
@@ -84,6 +88,7 @@
         values (#{id,jdbcType=INTEGER},
                 #{url,jdbcType=VARCHAR},
                 #{path,jdbcType=VARCHAR},
+                #{componentDir,jdbcType=VARCHAR},
                 #{component,jdbcType=VARCHAR},
                 #{name,jdbcType=VARCHAR},
                 #{iconCls,jdbcType=VARCHAR},
@@ -105,6 +110,9 @@
             </if>
             <if test="path != null">
                 path,
+            </if>
+            <if test="componentDir != null">
+                componentDir,
             </if>
             <if test="component != null">
                 component,
@@ -144,6 +152,9 @@
             <if test="path != null">
                 #{path,jdbcType=VARCHAR},
             </if>
+            <if test="componentDir != null">
+                #{componentDir,jdbcType=VARCHAR},
+            </if>
             <if test="component != null">
                 #{component,jdbcType=VARCHAR},
             </if>
@@ -182,6 +193,9 @@
             <if test="path != null">
                 path = #{path,jdbcType=VARCHAR},
             </if>
+            <if test="componentDir != null">
+                componentDir = #{componentDir,jdbcType=VARCHAR},
+            </if>
             <if test="component != null">
                 component = #{component,jdbcType=VARCHAR},
             </if>
@@ -216,6 +230,7 @@
         update menu
         set url         = #{url,jdbcType=VARCHAR},
             path        = #{path,jdbcType=VARCHAR},
+            componentDir   = #{componentDir,jdbcType=VARCHAR},
             component   = #{component,jdbcType=VARCHAR},
             name        = #{name,jdbcType=VARCHAR},
             iconCls     = #{iconCls,jdbcType=VARCHAR},

@@ -9,6 +9,8 @@ public class Menu {
 
     private String path;
 
+    private String componentDir;
+
     private String component;
 
     private String name;
@@ -101,5 +103,13 @@ public class Menu {
 
     public void setChildren(List<Menu> children) {
         this.children = children;
+    }
+
+    public String getComponentDir() {
+        return componentDir;
+    }
+
+    public void setComponentDir(String componentDir) {
+        this.componentDir = componentDir;
     }
 }
